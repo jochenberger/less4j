@@ -125,10 +125,9 @@ class CountNodesAction implements TreeVisitorAction {
   }
 
   private int countOnChannelTokes(int start, int end) {
-    @SuppressWarnings("unchecked")
-    List<CommonToken> list = tokens.get(start, end);
+    List<? extends Token> list = tokens.get(start, end);
     int count = 0;
-    for (CommonToken token : list) {
+    for (Token token : list) {
       if (isOnChannel(token) && !isDummy(token))
         count++;
     }
@@ -139,7 +138,7 @@ class CountNodesAction implements TreeVisitorAction {
     return token.getType()<LessLexer.CHARSET_SYM;
   }
 
-  private boolean isOnChannel(CommonToken token) {
+  private boolean isOnChannel(Token token) {
     return token.getChannel()==Token.DEFAULT_CHANNEL;
   }
 

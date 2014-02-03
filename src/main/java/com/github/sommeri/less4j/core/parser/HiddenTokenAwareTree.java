@@ -46,7 +46,7 @@ public class HiddenTokenAwareTree extends CommonTree {
 
   @SuppressWarnings("unchecked")
   public List<HiddenTokenAwareTree> getChildren() {
-    List<HiddenTokenAwareTree> result = super.getChildren();
+    List<HiddenTokenAwareTree> result = (List<HiddenTokenAwareTree>) super.getChildren();
     if (result == null)
       result = Collections.emptyList();
     return result;
