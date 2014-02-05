@@ -97,6 +97,7 @@ tokens {
   import com.github.sommeri.less4j.core.parser.AntlrException;
   import com.github.sommeri.less4j.LessCompiler.Problem;
   import com.github.sommeri.less4j.LessSource;
+  import java.util.LinkedList;
 }
  
 @parser::header {
@@ -123,7 +124,7 @@ tokens {
     }
 
   //This trick allow Lexer to emit multiple tokens per one rule.
-  List tokens = new ArrayList();
+  LinkedList<Token> tokens = new LinkedList<Token>();
   public void emit(Token token) {
         state.token = token;
         tokens.add(token);
@@ -136,10 +137,11 @@ tokens {
   }
   public Token nextToken() {
         super.nextToken();
-        if ( tokens.size()==0 ) {
+        Token token = tokens.poll();
+        if ( token == null ) {
             return getEOFToken();
         }
-        return (Token)tokens.remove(0);
+        return token;
   }
   //add new field
   private List<Problem> errors = new ArrayList<Problem>();
